@@ -1,0 +1,5 @@
+Goal: 
+1. To create smart resume parser, which will latter rank all resume according to JD.
+2. It wll not only consider the JD but also look for candidates skill set, experience, projects,etc.
+
+Task1: write code to extract skills, projects, experience, location, languages, contact information from any resume.
