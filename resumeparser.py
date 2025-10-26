@@ -1,3 +1,8 @@
+# with open("AkankshaShivaleResume_DataToBiz.pdf",'rb') as f:
+#     content = f.read()
+#     print(content.decode(errors ="ignore"))
+# this will print all file content in binary which is not useful.
+
 from PyPDF2 import PdfReader
 import re
 reader = PdfReader("resume\AkankshaShivaleResume_DataToBiz.pdf")
@@ -100,25 +105,27 @@ headers = [value for value in d.values() if value]
 
 print(headers)
 
-# Find the index of "skills" in headers
-skill_idx = headers.index("skills")
 
-# Determine the next header after skills
-next_header = headers[skill_idx + 1] if skill_idx + 1 < len(headers) else None
+def extract_text_for_header(header):
+    # Find the index of "skills" in headers
+    skill_idx = headers.index(header)
 
-# Regex pattern: capture text after "skills" until the next header (non-greedy)
-if next_header:
-    pattern = rf"skills\s*(.*?)\s*{next_header}"
-else:
-    pattern = r"skills\s*(.*)"
+    # Determine the next header after skills
+    next_header = headers[skill_idx + 1] if skill_idx + 1 < len(headers) else None
 
-match = re.search(pattern, text, re.DOTALL | re.IGNORECASE)
-skills_text = match.group(1).strip() if match else ""
+    # Regex pattern: capture text after "skills" until the next header (non-greedy)
+    if next_header:
+        pattern = rf"{header}\s*(.*?)\s*{next_header}"
+    else:
+        pattern = rf"{header}\s*(.*)"
 
-print(skills_text)
+    match = re.search(pattern, text, re.DOTALL | re.IGNORECASE)
+    return match.group(1).strip() if match else ""
+
+header = "skills"
+for header in headers:
+    print(f"{header} : { extract_text_for_header(header)}")
+    
 
 
-# with open("AkankshaShivaleResume_DataToBiz.pdf",'rb') as f:
-#     content = f.read()
-#     print(content.decode(errors ="ignore"))
-# this will print all file content in binary which is not useful.
+
