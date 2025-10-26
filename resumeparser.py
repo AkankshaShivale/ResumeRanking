@@ -1,6 +1,6 @@
 from PyPDF2 import PdfReader
 import re
-reader = PdfReader("resume\data_scientist_tharani_2.5yoe.pdf")
+reader = PdfReader("resume\AkankshaShivaleResume_DataToBiz.pdf")
 str = ""
 for page in reader.pages:
     str+=page.extract_text()
@@ -8,7 +8,7 @@ for page in reader.pages:
 text = str.lower()
 # print(text)
 # print(re.findall(r"\n\s*([A-Za-z\s&]+)\s*\n(?=\s*\n)", text))
-print(text)
+
 common_resume_headers = {
     "personal": [
         "contact information",
@@ -98,9 +98,24 @@ for k in common_resume_headers.keys():
 
 headers = [value for value in d.values() if value]
 
-print(d)
+print(headers)
 
+# Find the index of "skills" in headers
+skill_idx = headers.index("skills")
 
+# Determine the next header after skills
+next_header = headers[skill_idx + 1] if skill_idx + 1 < len(headers) else None
+
+# Regex pattern: capture text after "skills" until the next header (non-greedy)
+if next_header:
+    pattern = rf"skills\s*(.*?)\s*{next_header}"
+else:
+    pattern = r"skills\s*(.*)"
+
+match = re.search(pattern, text, re.DOTALL | re.IGNORECASE)
+skills_text = match.group(1).strip() if match else ""
+
+print(skills_text)
 
 
 # with open("AkankshaShivaleResume_DataToBiz.pdf",'rb') as f:
