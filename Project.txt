@@ -3,3 +3,6 @@ Goal:
 2. It wll not only consider the JD but also look for candidates skill set, experience, projects,etc.
 
 Task1: write code to extract skills, projects, experience, location, languages, contact information from any resume.
+->  (1) extracted all data
+    (2) want to extract sections names
+
