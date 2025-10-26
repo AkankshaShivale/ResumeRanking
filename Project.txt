@@ -5,4 +5,6 @@ Goal:
 Task1: write code to extract skills, projects, experience, location, languages, contact information from any resume.
 ->  (1) extracted all data
     (2) want to extract sections names
+    (3) extract text for each section from resume
+    (4) create new JSON with section name and text for it
 
